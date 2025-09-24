@@ -9,7 +9,7 @@ return {
   config = function()
     local mason_lspconfig = require("mason-lspconfig")
     mason_lspconfig.setup({
-      ensure_installed = { "typescript-language-server" }, -- Node.js LSP (tsserver renamed to ts_ls in Neovim 0.11+)
+      ensure_installed = { "typescript-language-server" }, -- Node.js LSP
     })
     mason_lspconfig.setup_handlers({
       function(server_name)
