@@ -1,0 +1,10 @@
+# Neovim cache and state
+~/.local/share/nvim/
+~/.local/state/nvim/
+~/.cache/nvim/
+# Lazy.nvim lockfile (optional, include if you want reproducible installs)
+lazy-lock.json
+# Other temporary files
+*.swp
+*.swo
+*.log
