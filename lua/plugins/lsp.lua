@@ -6,10 +6,37 @@ return {
   { "hrsh7th/cmp-buffer" },
   { "hrsh7th/cmp-path" },
   { "L3MON4D3/LuaSnip", dependencies = { "saadparwaiz1/cmp_luasnip" } },
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   config = function()
+    -- Treesitter for JS/TS syntax
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = { "javascript", "typescript" },
+      highlight = { enable = true },
+    })
+
+    -- Diagnostics configuration
+    vim.diagnostic.config({
+      virtual_text = {
+        prefix = "●", -- Icon for errors
+        severity = vim.diagnostic.severity.ERROR, -- Only show errors
+      },
+      signs = {
+        active = true,
+        values = {
+          { name = "DiagnosticSignError", text = "" },
+          { name = "DiagnosticSignWarn", text = "" },
+          { name = "DiagnosticSignInfo", text = "" },
+          { name = "DiagnosticSignHint", text = "" },
+        },
+      },
+      underline = true, -- Underline errors in code
+      update_in_insert = false,
+      severity_sort = true,
+    })
+
     local mason_lspconfig = require("mason-lspconfig")
     mason_lspconfig.setup({
-      ensure_installed = { "typescript-language-server" }, -- Node.js LSP
+      ensure_installed = { "typescript-language-server" },
     })
     mason_lspconfig.setup_handlers({
       function(server_name)
@@ -28,6 +55,7 @@ return {
         bufmap("gd", vim.lsp.buf.definition, "Goto Definition")
         bufmap("K", vim.lsp.buf.hover, "Hover")
         bufmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+        bufmap("<leader>e", vim.diagnostic.open_float, "Show Diagnostics")
       end,
     })
 
