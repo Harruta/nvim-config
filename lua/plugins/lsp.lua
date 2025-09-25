@@ -1,11 +1,8 @@
+-- plugins/lsp.lua
 return {
   { "williamboman/mason.nvim", config = true },
   { "williamboman/mason-lspconfig.nvim", dependencies = { "williamboman/mason.nvim" } },
   { "neovim/nvim-lspconfig" },
-  { "hrsh7th/nvim-cmp", dependencies = { "hrsh7th/cmp-nvim-lsp" } },
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-path" },
-  { "L3MON4D3/LuaSnip", dependencies = { "saadparwaiz1/cmp_luasnip" } },
   { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   config = function()
     -- Diagnostics configuration
@@ -31,6 +28,43 @@ return {
       severity_sort = true,
       float = {
         border = "rounded",
+      },
+    })
+
+    -- Mason-LSPconfig: Ensure LSP servers are installed
+    require("mason-lspconfig").setup({
+      ensure_installed = { "tsserver", "lua_ls" }, -- Install LSPs for JS/TS and Lua
+      automatic_installation = true,
+    })
+
+    -- LSP server configurations
+    local lspconfig = require("lspconfig")
+    local servers = {
+      tsserver = {
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "tsx" },
+      },
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }, -- Recognize 'vim' global for Neovim configs
+            },
+          },
+        },
+      },
+    }
+
+    for server, config in pairs(servers) do
+      config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+      lspconfig[server].setup(config)
+    end
+
+    -- null-ls for additional diagnostics/formatting
+    local null_ls = require("null-ls")
+    null_ls.setup({
+      sources = {
+        null_ls.builtins.formatting.prettier, -- For JS/TS formatting
+        null_ls.builtins.diagnostics.eslint_d, -- For JS/TS linting
       },
     })
   end,
