@@ -1,0 +1,24 @@
+CompileFlags:
+  Add:
+    - -DLOCAL
+    - -O2
+    - -Wno-everything
+    - -std=c++17
+    - -I/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15
+    - -I/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin24
+    - -I/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/backward
+    - -I/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/15/gcc/aarch64-apple-darwin24/15/include
+    - -I/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/15/gcc/aarch64-apple-darwin24/15/include-fixed
+    - -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
+    - -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+  Remove:
+    - -W*
+Index:
+  Background: Skip
+Diagnostics:
+  UnusedIncludes: None
+  MissingIncludes: None
+  Suppress:
+    - ambiguous_reference
+    - constexpr_not_const  # Add this
+    - pp_including_mainfile_in_preamble  # Optional: suppresses other common header issues

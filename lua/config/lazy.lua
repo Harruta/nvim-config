@@ -20,6 +20,7 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import/override with your plugins
     { import = "plugins" },
+    { import = "lazyvim.plugins.extras.lang.rust" },
     -- override tokyonight for transparency
     {
       "folke/tokyonight.nvim",
