@@ -1,3 +1,4 @@
+#Add this file to the folder where you have all the C/C++ code to detect the <bits/stdc++.h> file
 CompileFlags:
   Add:
     - -DLOCAL
@@ -11,6 +12,7 @@ CompileFlags:
     - -I/opt/homebrew/Cellar/gcc/15.2.0/lib/gcc/15/gcc/aarch64-apple-darwin24/15/include-fixed
     - -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
     - -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+    - -D__float128=float
   Remove:
     - -W*
 Index:
@@ -23,3 +25,4 @@ Diagnostics:
     - constexpr_not_const  # Ensure this is included
     - pp_including_mainfile_in_preamble  # Optional, for header issues
     - all  # Temporary: test if this eliminates the error
+
