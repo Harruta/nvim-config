@@ -51,3 +51,14 @@ require("lazy").setup({
     },
   },
 })
+
+-- Make line numbers static (absolute)
+vim.opt.number = true
+vim.opt.relativenumber = false
+
+-- Set line numbers, fold column, and sign column to grey-white (example hex: #C0C0C0)
+vim.cmd([[
+  highlight! LineNr guifg=#C0C0C0 guibg=NONE
+  highlight! FoldColumn guifg=#C0C0C0 guibg=NONE
+  highlight! SignColumn guibg=NONE
+]])
