@@ -1,1 +1,1 @@
-(<Screenshot 2025-11-25 at 20.51.20.png>)
+![alt text](<Screenshot 2025-11-25 at 20.51.20.png>)
